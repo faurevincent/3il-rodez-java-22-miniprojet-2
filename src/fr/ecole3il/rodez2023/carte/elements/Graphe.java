@@ -2,11 +2,22 @@ package fr.ecole3il.rodez2023.carte.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Graphe<E> {
 	
 	private List<Noeud<E>> noeuds;
 	
+	Map<Noeud<E>, Map<Noeud<E>,Double>> matriceAdjacence;
+	
+	
+	
+	public Graphe() {
+		noeuds = new ArrayList<Noeud<E>>();
+		matriceAdjacence = new TreeMap<Noeud<E>, Map<Noeud<E>,Double>>();
+	}
+
 	public void ajouterNoeud(Noeud<E> noeud) {
 		if(!estExistant(noeud)) {
 			noeuds.add(noeud);
@@ -14,12 +25,22 @@ public class Graphe<E> {
 	}
 	
 	public void ajouterArete(Noeud<E> depart, Noeud<E> arrivee, double cout) {
-		// TODO
+		if(!estExistant(depart)) {
+			ajouterNoeud(depart);
+		}
+		if(!estExistant(arrivee)) {
+			ajouterNoeud(depart);
+		}
+		
+		if(matriceAdjacence.get(depart) == null) {
+			matriceAdjacence.put(depart, new TreeMap<Noeud<E>, Double>());
+		}
+		
+		matriceAdjacence.get(depart).put(arrivee, cout);
 	}
 	
 	public double getCoutArete(Noeud<E> depart, Noeud<E> arrivee) {
-		//TODO
-		return 0.0;
+		return matriceAdjacence.get(depart).get(arrivee);
 	}
 	
 	public List<Noeud<E>> getNoeuds(){

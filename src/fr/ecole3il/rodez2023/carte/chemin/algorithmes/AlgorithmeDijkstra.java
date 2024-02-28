@@ -13,6 +13,12 @@ public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
 	public List<Noeud<E>> trouverChemin(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee) {
 		
 		Map<Noeud<E>, Double> coutByNoeud = new TreeMap<>();
+				
+		for (Noeud n : graphe.getNoeuds()) {
+			coutByNoeud.put(n, Double.MAX_VALUE);
+		}
+		
+		coutByNoeud.put(depart, 0.0);
 		
 		// TODO Auto-generated method stub
 		return null;
