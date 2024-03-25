@@ -30,9 +30,12 @@ public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
 		couts.put(depart, 0.0); // Noeud de départ cout = 0
         filePriorite.add(depart);
         
-        Noeud<E> noeudActuel = filePriorite.poll();
-        
-        while(!filePriorite.isEmpty() && !arrivee.equals(noeudActuel)) {
+        while(!filePriorite.isEmpty()) {
+        	
+        	Noeud<E> noeudActuel = filePriorite.poll();
+        	if(arrivee.equals(noeudActuel)) {
+        		return reconstructionChemin(arrivee, predecesseurs);
+        	}
         	
         	for(Noeud voisin : noeudActuel.getVoisins()) {
         		double nouveauCout = couts.get(noeudActuel) + graphe.getCoutArete(noeudActuel, voisin);
@@ -42,11 +45,9 @@ public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
                     filePriorite.add(voisin);
                 }
         	}
-        	
-        	noeudActuel = filePriorite.poll();
         }
         
-        return reconstructionChemin(arrivee, predecesseurs);
+        return null; // Pas de chemin
 	}
 	
 	/**
