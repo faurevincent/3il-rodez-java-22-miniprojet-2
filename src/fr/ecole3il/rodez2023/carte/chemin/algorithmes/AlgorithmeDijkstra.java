@@ -54,7 +54,7 @@ public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
 	}
 	
 	/**
-	 * 
+	 * Reconstruction du chemin
 	 * @param arrivee
 	 * @param predecesseurs
 	 * @return

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import fr.ecole3il.rodez2023.carte.elements.Case;
 import fr.ecole3il.rodez2023.carte.elements.Graphe;
 import fr.ecole3il.rodez2023.carte.elements.Noeud;
 
@@ -52,7 +53,7 @@ public class AlgorithmeAEtoile<E> implements AlgorithmeChemin<E> {
 	}
 	
 	/**
-	 * 
+	 * Reconstruction du chemin
 	 * @param arrivee
 	 * @param predecesseurs
 	 * @return
@@ -75,7 +76,11 @@ public class AlgorithmeAEtoile<E> implements AlgorithmeChemin<E> {
 	 * @return un double
 	 */
     private double estimationHeuristique(Noeud<E> noeud, Noeud<E> arrivee) {
-        return 0.0;
+    	Case caseN = (Case) noeud.getValeur();
+        Case caseCible = (Case) arrivee.getValeur(); 
+        double dx = Math.abs(caseN.getX() - caseCible.getX());
+        double dy = Math.abs(caseN.getY() - caseCible.getY());
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
 }

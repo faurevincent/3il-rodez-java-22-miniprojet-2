@@ -13,6 +13,16 @@ import fr.ecole3il.rodez2023.carte.elements.Noeud;
 
 public class AdaptateurAlgorithme {
 	
+	/**
+	 * Renvoie le plus court chemin entre deux noeuds
+	 * @param algorithme
+	 * @param carte
+	 * @param xDepart
+	 * @param yDepart
+	 * @param xArrivee
+	 * @param yArrivee
+	 * @return
+	 */
 	public static Chemin trouverChemin(AlgorithmeChemin<Case> algorithme, Carte carte, int xDepart, int yDepart, int xArrivee, int yArrivee) {
 		
 		Graphe<Case> g = creerGraphe(carte);
@@ -26,6 +36,11 @@ public class AdaptateurAlgorithme {
 		return list == null ? new Chemin(new ArrayList<Case>()) : new Chemin(list.stream().map(n -> n.getValeur()).collect(Collectors.toList()));
 	}
 	
+	/**
+	 * Création du graphe depuis la carte
+	 * @param carte
+	 * @return un graphe
+	 */
 	static Graphe <Case> creerGraphe(Carte carte){
 		
 		Graphe<Case> graphe = new Graphe<>();
@@ -52,6 +67,15 @@ public class AdaptateurAlgorithme {
         return graphe;
 	}
 
+	/**
+	 * Ajout des arretes pour une case courante
+	 * @param graphe
+	 * @param currentCase
+	 * @param x
+	 * @param y
+	 * @param largeur
+	 * @param hauteur
+	 */
 	static void ajouterAretesVoisines(Graphe<Case> graphe, Case currentCase, int x, int y, int largeur, int hauteur) {
 		int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         for (int[] direction : directions) {
@@ -65,10 +89,20 @@ public class AdaptateurAlgorithme {
         }
 	}
 	
+	/**
+	 * Calcul du cout
+	 * @param from
+	 * @param to
+	 * @return
+	 */
 	static double calculerCout(Case from, Case to) {
 		return from.getTuile().getPenalite() + to.getTuile().getPenalite();
 	}
 	
+	/**
+	 * Affichage en console du chemin
+	 * @param chemin
+	 */
 	static void afficherChemin(List<Noeud<Case>> chemin) {
 		for(Noeud<Case> n : chemin) {
 			System.out.println(n.getValeur().toString());
