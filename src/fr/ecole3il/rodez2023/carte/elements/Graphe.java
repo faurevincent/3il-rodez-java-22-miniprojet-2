@@ -1,6 +1,7 @@
 package fr.ecole3il.rodez2023.carte.elements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,11 +12,9 @@ public class Graphe<E> {
 	
 	Map<Noeud<E>, Map<Noeud<E>,Double>> matriceAdjacence;
 	
-	
-	
 	public Graphe() {
 		noeuds = new ArrayList<Noeud<E>>();
-		matriceAdjacence = new TreeMap<Noeud<E>, Map<Noeud<E>,Double>>();
+		matriceAdjacence = new HashMap<Noeud<E>, Map<Noeud<E>,Double>>();
 	}
 
 	public void ajouterNoeud(Noeud<E> noeud) {
@@ -45,6 +44,18 @@ public class Graphe<E> {
 	
 	public List<Noeud<E>> getNoeuds(){
 		return noeuds;
+	}
+	
+	public Noeud<E> getNoeud(int x, int y){
+		for(Noeud<E> n : noeuds) {
+			if(n.getValeur().getClass() == Case.class) {
+				Case c = (Case) n.getValeur();
+				if(c.getX() == x && c.getY() == y) {
+					return n;
+				}
+			}
+		}
+		return null;
 	}
 	
 	public List<Noeud<E>> getVoisins(Noeud<E> noeud){

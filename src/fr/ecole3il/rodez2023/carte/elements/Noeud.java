@@ -7,7 +7,7 @@ import java.util.List;
  * Représente un noeud
  * @param <E>
  */
-public class Noeud<E> {
+public class Noeud<E> implements Comparable<E> {
 	
 	/**
 	 * Valeur du noeud
@@ -48,5 +48,13 @@ public class Noeud<E> {
 	 */
 	public void ajouterVoisin(Noeud<E> voisin) {
 		voisins.add(voisin);
+	}
+
+	@Override
+	public int compareTo(E o) {
+		if(valeur == o) {
+			return 1;
+		}
+		return 0;
 	}
 }

@@ -3,11 +3,13 @@ package fr.ecole3il.rodez2023.carte.chemin.algorithmes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.TreeMap;
 
+import fr.ecole3il.rodez2023.carte.elements.Case;
 import fr.ecole3il.rodez2023.carte.elements.Graphe;
 import fr.ecole3il.rodez2023.carte.elements.Noeud;
 
@@ -16,8 +18,8 @@ public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
 	@Override
 	public List<Noeud<E>> trouverChemin(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee) {
 		
-		Map<Noeud<E>, Double> couts = new TreeMap<>();
-		Map<Noeud<E>, Noeud<E>> predecesseurs = new TreeMap<>();
+		Map<Noeud<E>, Double> couts = new HashMap<>();
+		Map<Noeud<E>, Noeud<E>> predecesseurs = new HashMap<>();
 		
 		// File de prioritée
 		PriorityQueue<Noeud<E>> filePriorite = new PriorityQueue<>(Comparator.comparingDouble(couts::get));
@@ -33,6 +35,7 @@ public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
         while(!filePriorite.isEmpty()) {
         	
         	Noeud<E> noeudActuel = filePriorite.poll();
+        	Case c = (Case) noeudActuel.getValeur();
         	if(arrivee.equals(noeudActuel)) {
         		return reconstructionChemin(arrivee, predecesseurs);
         	}
